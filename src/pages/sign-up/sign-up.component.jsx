@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { connect } from "react-redux";
 
@@ -15,7 +15,13 @@ const SignUpPage = ({ currentUser, setCurrentUser }) => {
         password: "",
         confirmPassword: "",
     });
+
     const { fullName, email, password, confirmPassword } = userCredentials;
+
+    const localCurrentUser = localStorage.getItem("currentUser");
+
+    if (localCurrentUser !== null) currentUser = JSON.parse(localCurrentUser);
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -24,7 +30,11 @@ const SignUpPage = ({ currentUser, setCurrentUser }) => {
             return;
         }
 
-        setCurrentUser({ fullName, email, password });
+        const requiredDetails = { fullName, email, password };
+
+        localStorage.setItem("currentUser", JSON.stringify(requiredDetails));
+
+        setCurrentUser(requiredDetails);
     };
 
     const handleChange = (event) => {
