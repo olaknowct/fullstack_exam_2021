@@ -30,6 +30,10 @@ $main-color: black;
             border-bottom: 2px solid rgb(94, 94, 228);
         }
 
+        &:focus:invalid {
+            border-bottom: 3px solid red;
+        }
+
         &:focus ~ .form-input-label {
             @include shrinkLabel();
         }

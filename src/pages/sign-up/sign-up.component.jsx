@@ -6,9 +6,11 @@ import FormInput from "../../components/form-input/form-input.component";
 
 import { setCurrentUser } from "../../redux/user/user.actions";
 
+import { signUpStart } from "../../redux/user/user.actions";
+
 import "./sign-up.styles.scss";
 
-const SignUpPage = ({ currentUser, setCurrentUser }) => {
+const SignUpPage = ({ currentUser, setCurrentUser, signUpStart }) => {
     const [userCredentials, setUserCredentials] = useState({
         fullName: "",
         email: "",
@@ -34,7 +36,8 @@ const SignUpPage = ({ currentUser, setCurrentUser }) => {
 
         localStorage.setItem("currentUser", JSON.stringify(requiredDetails));
 
-        setCurrentUser(requiredDetails);
+        // setCurrentUser(requiredDetails);
+        signUpStart(requiredDetails);
     };
 
     const handleChange = (event) => {
@@ -115,6 +118,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         setCurrentUser: (userCredentials) =>
             dispatch(setCurrentUser(userCredentials)),
+        signUpStart: (userCredentials) =>
+            dispatch(signUpStart(userCredentials)),
     };
 };
 

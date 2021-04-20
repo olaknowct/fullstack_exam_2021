@@ -8,6 +8,7 @@ const FormInput = ({ handleChange, label, ...otherProps }) => {
             <input
                 type="text"
                 className="form-input"
+                required
                 onChange={handleChange}
                 {...otherProps}
             />

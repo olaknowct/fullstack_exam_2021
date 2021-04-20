@@ -12,6 +12,8 @@ const userReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 currentUser: action.payload,
             };
+        case UserActionTypes.SIGN_UP_START:
+            console.log("reduxer first : do nothing ");
 
         default:
             return state;

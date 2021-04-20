@@ -6,3 +6,10 @@ export const setCurrentUser = (user) => {
         payload: user,
     };
 };
+
+export const signUpStart = (userCredentials) => {
+    return {
+        type: UserActionTypes.SIGN_UP_START,
+        payload: userCredentials,
+    };
+};
