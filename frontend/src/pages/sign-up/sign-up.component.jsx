@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import { connect } from "react-redux";
 
@@ -51,9 +51,6 @@ const SignUpPage = ({ currentUser, setCurrentUser, signUpStart }) => {
 
     return (
         <div className="sign-up">
-            <div className="sign-up__logo">
-                <img src="./img/logo/barber_time_logo.png" alt="" />
-            </div>
             {currentUser ? (
                 <h2 className="message-success">
                     Great! Please check your email to activate!
