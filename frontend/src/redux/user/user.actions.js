@@ -13,3 +13,10 @@ export const signUpStart = (userCredentials) => {
         payload: userCredentials,
     };
 };
+
+export const signUpSuccess = (user) => {
+    return {
+        type: UserActionTypes.SIGN_UP_SUCCESS,
+        payload: user,
+    };
+};
