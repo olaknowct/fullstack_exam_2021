@@ -20,3 +20,24 @@ export const signUpSuccess = (user) => {
         payload: user,
     };
 };
+
+export const verifyUserAccount = (email) => {
+    return {
+        type: UserActionTypes.VERIFY_START,
+        payload: { email },
+    };
+};
+
+export const verifyFailed = (message) => {
+    return {
+        type: UserActionTypes.VERIFY_FAILED,
+        payload: message,
+    };
+};
+
+export const verifyAccount = (userCredentials) => {
+    return {
+        type: UserActionTypes.VERIFY_ACCOUNT,
+        payload: userCredentials,
+    };
+};

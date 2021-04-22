@@ -2,10 +2,10 @@ import React from "react";
 
 import "./logo.style.scss";
 
-const Logo = () => {
+const Logo = ({ src }) => {
     return (
         <div className="header-logo">
-            <img src="./img/logo/barber_time_logo.png" alt="" />
+            <img src={src} alt="" />
         </div>
     );
 };

@@ -23,6 +23,7 @@ const transporter = nodemailer.createTransport(
 
 // Mail Gun - Mail Server (Back up for high availablity)
 const mailgun = require("mailgun-js");
+const e = require("express");
 
 const mg = mailgun({
     apiKey: process.env.MAILGUN_API_KEY,
@@ -42,14 +43,15 @@ app.post("/signup", async (req, res) => {
 
     reqObj.verified = false;
 
-    myCache.set(reqObj.email, reqObj, 0);
+    const email = reqObj.email;
+
+    myCache.set(email, reqObj, 0);
 
     const emailObjData = {
-        to: reqObj.email,
+        to: email,
         from: "",
         subject: "Successfully Signed Up - Account Verification!",
-        html:
-            "<h1>Click The <a href='http://localhost:3000/account-verification'>link</a> to verify your account</h1>",
+        html: `<h1>Click The <a href='http://localhost:3000/account-verification/${email}'>link</a> to verify your account</h1>`,
     };
 
     try {
@@ -72,10 +74,20 @@ app.post("/signup", async (req, res) => {
 });
 
 // successfull email
-app.get("/signup/:email", async (req, res) => {
-    console.log(myCache.get("test@gmail.com"));
+app.post("/account-verification/verify", async (req, res) => {
+    const reqObj = req.body;
+    const user = myCache.get(reqObj.email);
+    const objResponse = {};
+    // console.log(user);
+    if (user) {
+        objResponse.status = "success";
+        objResponse.data = user;
+    } else {
+        objResponse.status = "fail";
+        objResponse.data = user;
+    }
 
-    res.status(200).send({ succes: "test" });
+    res.status(200).send({ data: objResponse });
 });
 
 // app.post("/signup/{email}", (req, res) => {

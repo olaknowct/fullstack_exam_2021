@@ -10,7 +10,11 @@ import { signUpStart } from "../../redux/user/user.actions";
 
 import "./sign-up.styles.scss";
 
-const SignUpPage = ({ currentUser, setCurrentUser, signUpStart }) => {
+const SignUpPage = ({
+    user: { currentUser, isProcessing },
+    setCurrentUser,
+    signUpStart,
+}) => {
     const [userCredentials, setUserCredentials] = useState({
         fullName: "",
         email: "",
@@ -98,8 +102,13 @@ const SignUpPage = ({ currentUser, setCurrentUser, signUpStart }) => {
                             required
                         />
 
-                        <button className="btn__signup" type="submit">
-                            Sign up
+                        <button
+                            className="btn__signup"
+                            type={`${isProcessing ? "button" : "submit"}`}
+                        >
+                            {isProcessing
+                                ? "Processing................"
+                                : "Signup"}
                         </button>
                     </form>
                 </div>
@@ -110,7 +119,7 @@ const SignUpPage = ({ currentUser, setCurrentUser, signUpStart }) => {
 
 const mapStateToProps = (state) => {
     return {
-        currentUser: state.user.currentUser,
+        user: state.user,
     };
 };
 
