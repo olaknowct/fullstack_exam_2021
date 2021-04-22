@@ -9,7 +9,7 @@ if (process.env.NODE_ENV !== "production") require("dotenv").config();
 const app = express();
 const port = process.env.PORT || 5000;
 
-// mail server
+// SendGrid - mail server
 const nodemailer = require("nodemailer");
 const sendgridTransport = require("nodemailer-sendgrid-transport");
 
@@ -20,6 +20,14 @@ const transporter = nodemailer.createTransport(
         },
     })
 );
+
+// Mail Gun - Mail Server (Back up for high availablity)
+const mailgun = require("mailgun-js");
+
+const mg = mailgun({
+    apiKey: process.env.MAILGUN_API_KEY,
+    domain: process.env.MAILGUN_DOMAIN,
+});
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -36,17 +44,30 @@ app.post("/signup", async (req, res) => {
 
     myCache.set(reqObj.email, reqObj, 0);
 
+    const emailObjData = {
+        to: reqObj.email,
+        from: "",
+        subject: "Successfully Signed Up - Account Verification!",
+        html:
+            "<h1>Click The <a href='http://localhost:3000/account-verification'>link</a> to verify your account</h1>",
+    };
+
     try {
-        // const response = await transporter.sendMail({
-        //     to: reqObj.email,
-        //     from: process.env.SENDER_IDENTITY,
-        //     subject: "Signup succeeded!",
-        //     html:
-        //         "<h1>Click The following  <a href='http://localhost:5000'>link</a></h1>",
-        // });
-        res.status(200).send(reqObj);
+        emailObjData.from = process.env.SENDGRID_SENDER_IDENTITY;
+
+        const response = await transporter.sendMail(emailObjData);
+
+        res.status(200).send({ status: "success", data: response });
     } catch (error) {
-        res.status(500).send({ error: error });
+        try {
+            emailObjData.from = process.env.MAILGUN_SENDER_IDENTITY;
+
+            const response = await mg.messages().send(emailObjData);
+
+            res.status(200).send({ status: "success", data: response });
+        } catch (error) {
+            res.status(500).send(error);
+        }
     }
 });
 
