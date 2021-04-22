@@ -98,7 +98,9 @@ const SignUpPage = ({ currentUser, setCurrentUser, signUpStart }) => {
                             required
                         />
 
-                        <button type="submit"> Signup </button>
+                        <button className="btn__signup" type="submit">
+                            Sign up
+                        </button>
                     </form>
                 </div>
             )}

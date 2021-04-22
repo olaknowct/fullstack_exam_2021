@@ -1,0 +1,28 @@
+$color-primary-light: #55c57a;
+$color-primary-dark: #28b485;
+
+.main-page {
+    margin-top: 6rem;
+    padding: 10px 15px;
+
+    .section {
+        cursor: pointer;
+        text-decoration: none;
+        font-size: 2rem;
+        text-shadow: 0.5rem 1rem 2rem rgba(black, 0.2);
+
+        transition: all 0.1s;
+
+        background-image: linear-gradient(
+            to right,
+            $color-primary-light,
+            $color-primary-dark
+        );
+        -webkit-background-clip: text;
+        color: transparent;
+
+        &:hover {
+            font-size: 2.4rem;
+        }
+    }
+}
