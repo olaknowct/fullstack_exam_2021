@@ -56,3 +56,10 @@ Still Why? since i am using redux for my state management, it would be easy to c
 - Uses [Redux-Logger](https://www.npmjs.com/package/redux-logger) Middleware to easily track redux-flow
 - Uses [Node-Sass](https://www.npmjs.com/package/node-sass) to accomodate SASS/SCSS preprocessor.
 - Uses [NodeJS](https://nodejs.org/en/) for app server to handle client request and mail server.
+
+
+## Server API ENDPOINTS
+### `/signup`
+- If a form is submited, this endpoint handles the data and save it to in-memory, uses mail server to send email notification that the signup is successfull
+### `/account-verification/verify`
+- uses to verify a recently created account, and also checks if account exist
