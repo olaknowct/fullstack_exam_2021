@@ -30,3 +30,33 @@ $color-grey: #989898;
         }
     }
 }
+
+/* ipad X */
+@media screen and (max-width: 1024px) and (min-width: 768px) {
+    .sign-up {
+        width: 60rem;
+        .title {
+            font-size: 2.5rem;
+        }
+    }
+}
+
+/* iphone X */
+@media screen and (max-width: 767px) and (min-width: 375px) {
+    .sign-up {
+        width: 29rem;
+        .title {
+            font-size: 1.2rem;
+        }
+    }
+}
+
+/* iphone 5 */
+@media screen and (max-width: 374px) and (min-width: 320px) {
+    .sign-up {
+        width: 25rem;
+        .title {
+            font-size: 1.2rem;
+        }
+    }
+}
